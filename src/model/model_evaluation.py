@@ -5,6 +5,7 @@ import json
 import pickle
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report, precision_score, recall_score, roc_auc_score
+from xgboost import XGBClassifier
 
 def load_model(model_path: str = 'models/xgb_model.pkl') -> XGBClassifier:
     """
@@ -14,9 +15,9 @@ def load_model(model_path: str = 'models/xgb_model.pkl') -> XGBClassifier:
         model = pickle.load(f)
     return model
 
-def load_test_data(test_path: str = 'data/vectorized/test_data_vectorized.csv') -> tuple[pd.DataFrame, pd.Series]:
+def load_test_data(test_path: str = 'data/processed/test_data_processed.csv') -> tuple[pd.DataFrame, pd.Series]:
     """
-    Load the vectorized test data from a CSV file.
+    Load the processed test data from a CSV file.
     """
     test_data = pd.read_csv(test_path)
     X_test = test_data.drop(columns=['label'])
