@@ -90,12 +90,12 @@ def preprocess_data(train_data: pd.DataFrame, test_data: pd.DataFrame) -> tuple[
 
     return train_data, test_data
 
-# save the preprocessed data to data/processed
-def save_preprocessed_data(train_data: pd.DataFrame, test_data: pd.DataFrame, train_path: str = 'train_data_processed.csv', test_path: str = 'test_data_processed.csv') -> None:
+# save the interim data to data/interim
+def save_interim_data(train_data: pd.DataFrame, test_data: pd.DataFrame, train_path: str = 'train_data_interim.csv', test_path: str = 'test_data_interim.csv') -> None:
     """
-    Save the preprocessed data to CSV files.
+    Save the interim data to CSV files.
     """
-    data_path = os.path.join('data', 'processed')
+    data_path = os.path.join('data', 'interim')
     os.makedirs(data_path, exist_ok=True)
     train_data.to_csv(os.path.join(data_path, train_path), index=False)
     test_data.to_csv(os.path.join(data_path, test_path), index=False)
@@ -105,7 +105,7 @@ def main():
     """Main function to execute data preprocessing."""
     train_data, test_data = load_data()
     train_data, test_data = preprocess_data(train_data, test_data)
-    save_preprocessed_data(train_data, test_data)
+    save_interim_data(train_data, test_data)
 
 if __name__ == '__main__':
     main()
