@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import yaml
 
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # load the interim data from data/interim
 def load_interim_data(train_path: str = 'data/interim/train_data_interim.csv', test_path: str = 'data/interim/test_data_interim.csv') -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -26,9 +26,9 @@ def load_params(param_path: str = 'params.yaml') -> int:
 # vectorize the text data
 def vectorize_text(train_data: pd.DataFrame, test_data: pd.DataFrame, max_features: int = None) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Vectorize the text data using CountVectorizer.
+    Vectorize the text data using TfidfVectorizer.
     """
-    vectorizer = CountVectorizer(max_features=max_features)
+    vectorizer = TfidfVectorizer(max_features=max_features)
     train_data['content'] = train_data['content'].fillna('').astype(str)
     test_data['content'] = test_data['content'].fillna('').astype(str)
 
