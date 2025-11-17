@@ -7,9 +7,9 @@ import pickle
 import os
 import yaml
 
-def load_vectorized_data(train_path: str = 'data/vectorized/train_data_vectorized.csv') -> pd.DataFrame:
+def load_processed_data(train_path: str = 'data/processed/train_data_processed.csv') -> pd.DataFrame:
     """
-    Load vectorized data from a CSV file.
+    Load processed data from a CSV file.
     """
     train_data = pd.read_csv(train_path)
     return train_data
@@ -64,7 +64,7 @@ def save_model(model: XGBClassifier, model_path: str = 'models/xgb_model.pkl') -
 
 def main():
     """Main function to execute model building and evaluation."""
-    train_data = load_vectorized_data()
+    train_data = load_processed_data()
     train_data, X_eval, y_eval = evaluation_data(train_data=train_data)
     eval_metric, learning_rate, n_estimators, max_depth = load_params()
     model = build_model(train_data=train_data, eval_metric=eval_metric, learning_rate=learning_rate, n_estimators=n_estimators, max_depth=max_depth)
