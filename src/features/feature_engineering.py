@@ -5,10 +5,10 @@ import yaml
 
 from sklearn.feature_extraction.text import CountVectorizer
 
-# load the processed data from data/processed
-def load_processed_data(train_path: str = 'data/processed/train_data_processed.csv', test_path: str = 'data/processed/test_data_processed.csv') -> tuple[pd.DataFrame, pd.DataFrame]:
+# load the interim data from data/interim
+def load_interim_data(train_path: str = 'data/interim/train_data_interim.csv', test_path: str = 'data/interim/test_data_interim.csv') -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Load processed data from CSV files.
+    Load interim data from CSV files.
     """
     train_data = pd.read_csv(train_path)
     test_data = pd.read_csv(test_path)
@@ -43,22 +43,22 @@ def vectorize_text(train_data: pd.DataFrame, test_data: pd.DataFrame, max_featur
 
     return train_df, test_df
 
-# save the vectorized data to data/vectorized
-def save_vectorized_data(train_data: pd.DataFrame, test_data: pd.DataFrame, train_path: str = 'train_data_vectorized.csv', test_path: str = 'test_data_vectorized.csv') -> None:
+# save the processed data to data/processed
+def save_processed_data(train_data: pd.DataFrame, test_data: pd.DataFrame, train_path: str = 'train_data_processed.csv', test_path: str = 'test_data_processed.csv') -> None:
     """
-    Save the vectorized data to CSV files.
+    Save the processed data to CSV files.
     """
-    data_path = os.path.join('data', 'vectorized')
+    data_path = os.path.join('data', 'processed')
     os.makedirs(data_path, exist_ok=True)
     train_data.to_csv(os.path.join(data_path, train_path), index=False)
     test_data.to_csv(os.path.join(data_path, test_path), index=False)
 
 def main():
     """Main function to execute feature engineering."""
-    train_data, test_data = load_processed_data()
+    train_data, test_data = load_interim_data()
     max_features = load_params()
-    vectorized_train_data, vectorized_test_data = vectorize_text(train_data, test_data, max_features)
-    save_vectorized_data(vectorized_train_data, vectorized_test_data)
+    processed_train_data, processed_test_data = vectorize_text(train_data, test_data, max_features)
+    save_processed_data(processed_train_data, processed_test_data)
 
 
 if __name__ == '__main__':
